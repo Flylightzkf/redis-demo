@@ -8,4 +8,5 @@ import com.liang.redisdemo.model.UserModel;
  * @Date 2022/7/31 16:12
  */
 public interface UserServer  extends IService<UserModel> {
+    UserModel findById2(String id);
 }

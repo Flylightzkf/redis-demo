@@ -11,7 +11,7 @@ import lombok.Data;
 @TableName("user")
 public class UserModel {
     private String id;
-    private String name;
+    private String userName;
     private String age;
     private String sex;
 }
