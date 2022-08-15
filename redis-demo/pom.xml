@@ -76,6 +76,15 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
+
+        <!--设置时间格式-->
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.9.8</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>
