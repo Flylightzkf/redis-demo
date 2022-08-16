@@ -30,7 +30,6 @@ import java.time.Duration;
  * @author Mr.Liang
  * @date 2022/4/25 11:45
  */
-@EnableCaching
 @Configuration
 public class RedisConfig {
 

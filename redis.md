@@ -37,11 +37,11 @@ redis全称：Remote Dictionary Server（远程数据服务）
 - 高频读
 - 低频写
 
-## 三，项目中如何使用redis
+## 三，项目使用redis
 
 ### 3.1：基础步骤
 
-导入redis依赖
+1.导入redis依赖
 
 ```java
         <dependency>
@@ -51,7 +51,7 @@ redis全称：Remote Dictionary Server（远程数据服务）
         </dependency>
 ```
 
-配置文件
+2.配置文件
 
 ```java
 redis:
@@ -78,10 +78,43 @@ redis:
     timeout: 1000
 ```
 
+3.在启动类添加开启redis缓存注解
+
+```
+@EnableCaching//开启缓存
+```
+
 ### 3.2：设置redis配置类
 
 RedisConfig配置类，--通用写法
 
 ### 3.3：使用redis（增删改查）
+
+- 使用语句实现
+- 使用注解实现
+  - @Cacheable:
+    - 备注是的方法调用前，如果存在直接返回数据，如果不存在执行方法体，并把返回值添加到缓存中
+  - @ CachePut
+    - 可以保证方法一定会被执行
+  - @CachEvict：
+    - 删除缓存中数据
+    - 可以单删，也可全删
+    - 可以设置删除在何时被执行
+  - @CacheConfig（）
+    - 当一个类中有多个同样配置的缓存时，
+    - 直接在类上添加
+    - 方法上只需要添加@Cacheable不需要写具体的参数
+
+### 3.4：配置redis过期监听
+
+配置：
+
+- RedisConfig中配置消息监听容器和key过期监听器
+- 新建redis key过期监听类
+
+缺点：
+
+- 只要是链接同一个redis的程序都会监听得到key的内容
+- 只能监听key，不能监听value
 
 
