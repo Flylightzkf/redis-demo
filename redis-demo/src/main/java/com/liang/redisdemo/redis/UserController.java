@@ -59,6 +59,7 @@ public class UserController {
 
     /**
      * 在数据发生修改时
+     * 根据置顶key删除缓存数据
      *
      * @param userModel
      * @return
@@ -69,18 +70,31 @@ public class UserController {
         return AjaxResult.success();
     }
 
+    /**
+     * 删除全部缓存
+     *
+     * @param userModel
+     * @return
+     */
     @PutMapping("/update1")
     public AjaxResult update1(UserModel userModel) {
         userServer.update1(userModel);
         return AjaxResult.success();
     }
+
+    /**
+     * 在方法执行前和执行后执行删除缓存
+     *
+     * @param userModel
+     * @return
+     */
     @PutMapping("/update2")
     public AjaxResult update2(UserModel userModel) {
         userServer.update2(userModel);
         return AjaxResult.success();
     }
 
-    public AjaxResult add(){
+    public AjaxResult add() {
         return AjaxResult.success();
     }
 

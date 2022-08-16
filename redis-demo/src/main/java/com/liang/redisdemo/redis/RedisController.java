@@ -41,8 +41,9 @@ public class RedisController {
      */
 
     @PostMapping("/addExpirationData")
-    public void add(String id, Integer time) {
+    public AjaxResult add(String id, Integer time) {
         redisTemplate.opsForValue().set(id, null, time, TimeUnit.SECONDS);
+        return AjaxResult.success();
     }
 
     /**

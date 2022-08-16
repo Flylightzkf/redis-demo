@@ -1,10 +1,11 @@
 package com.liang.redisdemo.utils.redis;
 
 
-
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.liang.redisdemo.expired.KeyExpiredListener;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +14,7 @@ import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.RedisSerializer;
@@ -31,6 +33,10 @@ import java.time.Duration;
 @EnableCaching
 @Configuration
 public class RedisConfig {
+
+    @Autowired
+    private RedisConnectionFactory redisConnectionFactory;
+
     /**
      * 设置RedisTemplate规则
      *
@@ -74,11 +80,38 @@ public class RedisConfig {
         om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
         jackson2JsonRedisSerializer.setObjectMapper(om);
         // 配置序列化（解决乱码的问题）,过期时间600秒
-        RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofSeconds(600)) //缓存过期10分钟 ---- 业务需求。
-                .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(redisSerializer))//设置key的序列化方式
-                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer)) //设置value的序列化
-                .disableCachingNullValues();
+        RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig().entryTtl(
+                        //缓存过期10分钟 ---- 业务需求。
+                        Duration.ofSeconds(600))
+                //设置key的序列化方式
+                .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(redisSerializer))
+                //设置value的序列化
+                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer)).disableCachingNullValues();
         RedisCacheManager cacheManager = RedisCacheManager.builder(factory).cacheDefaults(config).build();
         return cacheManager;
     }
+
+
+    /**
+     * redis 消息监听容器
+     *
+     * @return
+     */
+    @Bean
+    public RedisMessageListenerContainer redisMessageListenerContainer() {
+        RedisMessageListenerContainer redisMessageListenerContainer = new RedisMessageListenerContainer();
+        redisMessageListenerContainer.setConnectionFactory(redisConnectionFactory);
+        return redisMessageListenerContainer;
+    }
+
+    /**
+     * 密钥过期监听器
+     *
+     * @return
+     */
+    @Bean
+    public KeyExpiredListener keyExpiredListener() {
+        return new KeyExpiredListener(this.redisMessageListenerContainer());
+    }
+
 }
