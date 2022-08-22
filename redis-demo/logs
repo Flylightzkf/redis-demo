@@ -871,3 +871,10 @@ java.nio.channels.ClosedChannelException: null
 2022-08-16 09:33:18.680  INFO 10108 --- [http-nio-1015-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/demo]   : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2022-08-16 09:33:18.681  INFO 10108 --- [http-nio-1015-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2022-08-16 09:33:18.682  INFO 10108 --- [http-nio-1015-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2022-08-22 20:29:55.668  INFO 17028 --- [main] c.l.redisdemo.RedisDemoApplicationTests  : Starting RedisDemoApplicationTests using Java 17 on ¡∫¿÷ with PID 17028 (started by 42873 in G:\project\redis-demo\redis-demo)
+2022-08-22 20:29:55.669 DEBUG 17028 --- [main] c.l.redisdemo.RedisDemoApplicationTests  : Running with Spring Boot v2.7.2, Spring v5.3.22
+2022-08-22 20:29:55.669  INFO 17028 --- [main] c.l.redisdemo.RedisDemoApplicationTests  : No active profile set, falling back to 1 default profile: "default"
+2022-08-22 20:29:56.301  INFO 17028 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2022-08-22 20:29:56.304  INFO 17028 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2022-08-22 20:29:56.334  INFO 17028 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 17 ms. Found 0 Redis repository interfaces.
+2022-08-22 20:29:58.858  INFO 17028 --- [main] c.l.redisdemo.RedisDemoApplicationTests  : Started RedisDemoApplicationTests in 3.55 seconds (JVM running for 4.292)

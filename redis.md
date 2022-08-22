@@ -117,4 +117,3 @@ RedisConfig配置类，--通用写法
 - 只要是链接同一个redis的程序都会监听得到key的内容
 - 只能监听key，不能监听value
 
-

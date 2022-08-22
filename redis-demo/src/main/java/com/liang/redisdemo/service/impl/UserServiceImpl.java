@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * @author LiangErLe
- * @Date 2022/7/31 16:13
+ * @Date 2022/8/20 16:13
  */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, UserModel> implements UserServer {
@@ -50,19 +50,20 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserModel> implemen
     }
 
     @Override
-    @CacheEvict(value = "redis-user",key = "#userModel.getId()")
+    @CacheEvict(value = "redis-user", key = "#userModel.getId()")
     public void update(UserModel userModel) {
 
     }
+
     @Override
-    @CacheEvict(value = "redis-user",allEntries=true)
+    @CacheEvict(value = "redis-user", allEntries = true)
     public void update1(UserModel userModel) {
         System.out.println("测试");
 
     }
 
     @Override
-    @CacheEvict(value = "redis-user",allEntries=true, beforeInvocation = false)
+    @CacheEvict(value = "redis-user", allEntries = true, beforeInvocation = false)
     public void update2(UserModel userModel) {
         System.out.println("测试");
     }
