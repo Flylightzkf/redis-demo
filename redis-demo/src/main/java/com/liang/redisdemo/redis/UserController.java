@@ -2,17 +2,12 @@ package com.liang.redisdemo.redis;
 
 import com.liang.redisdemo.model.UserModel;
 import com.liang.redisdemo.service.UserServer;
+import com.liang.redisdemo.utils.NumberPatter;
 import com.liang.redisdemo.utils.ajax.AjaxResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * @author LiangErLe
- * @Date 2022/8/20 16:13
- */
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -20,10 +15,50 @@ public class UserController {
     @Autowired
     private UserServer userServer;
 
+    @PostMapping("/add")
+    public AjaxResult add(@RequestBody UserModel userModel) {
+
+        String agestr=userModel.getAge();
+        if(NumberPatter.isNumeric(agestr)){
+           if(Integer.valueOf(agestr)>0&&Integer.valueOf(agestr)<150){
+                UserModel user= userServer.getByNameOrSort(userModel.getName(),userModel.getSort());
+                if(user!=null){
+                       return AjaxResult.error("name和sort存在重复，请检查数据！");
+                }else{
+                    if(userServer.save(userModel)){
+                        return AjaxResult.success();
+                    }else{
+                        return AjaxResult.error("保存数据错误！");
+                    }
+                }
+           }else{
+               return AjaxResult.error("请输入0-150之间的年龄区间！");
+           }
+        }else{
+            return AjaxResult.error("请输入数字格式的年龄！");
+        }
+    }
+
+    @GetMapping("/page")
+    public AjaxResult page(UserModel userModel) {
+        return AjaxResult.success(userServer.page(userModel));
+    }
+
+
+
+
+    @DeleteMapping("/delete/{id}")
+    public AjaxResult delete(@PathVariable String id) {
+        userServer.deleteById(id);
+        return AjaxResult.success("删除数据成功!");
+    }
+
+
+
     /**
      * 把数存放在缓存里面
      * 查询数据的时候先去判断缓存中是否存在数据
-     * 手动去存储
+     *
      *
      * @param id
      * @return
@@ -65,8 +100,8 @@ public class UserController {
      * @return
      */
     @PutMapping("/update")
-    public AjaxResult update(UserModel userModel) {
-        userServer.update(userModel);
+    public AjaxResult update(@RequestBody UserModel userModel) {
+        userServer.update1(userModel);
         return AjaxResult.success();
     }
 
@@ -77,7 +112,7 @@ public class UserController {
      * @return
      */
     @PutMapping("/update1")
-    public AjaxResult update1(UserModel userModel) {
+    public AjaxResult update1(@RequestBody UserModel userModel) {
         userServer.update1(userModel);
         return AjaxResult.success();
     }
@@ -89,14 +124,11 @@ public class UserController {
      * @return
      */
     @PutMapping("/update2")
-    public AjaxResult update2(UserModel userModel) {
+    public AjaxResult update2(@RequestBody UserModel userModel) {
         userServer.update2(userModel);
         return AjaxResult.success();
     }
 
-    public AjaxResult add() {
-        return AjaxResult.success();
-    }
 
 
 }

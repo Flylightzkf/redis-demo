@@ -2,8 +2,6 @@ package com.liang.redisdemo.utils;
 
 /**
  *  字符串工具类
- * @author Mr.Liang
- * @date 2022/5/11 15:59
  */
 
 

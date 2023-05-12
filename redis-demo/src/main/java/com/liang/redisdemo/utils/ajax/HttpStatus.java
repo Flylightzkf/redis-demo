@@ -2,8 +2,6 @@ package com.liang.redisdemo.utils.ajax;
 
 /**
  * 返回状态码
- * @author Mr.Liang
- * @date 2022/5/11 15:54
  */
 public class HttpStatus
 {

@@ -9,10 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
-/**
- * @author LiangErLe
- * @Date  2022/8/20 16:13
- */
+
 @RestController
 @RequestMapping("/redis")
 public class RedisController {

@@ -6,8 +6,6 @@ package com.liang.redisdemo.utils;
 /**
  * 字符串格式化
  *
- * @author Mr.Liang
- * @date 2022/5/11 16:00
  */
 public class StrFormatter {
     public static final String EMPTY_JSON = "{}";

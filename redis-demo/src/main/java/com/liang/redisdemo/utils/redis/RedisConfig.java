@@ -26,8 +26,6 @@ import java.time.Duration;
  * redis 缓存配置类
  * 固定写法
  *
- * @author Mr.Liang
- * @date 2022/4/25 11:45
  */
 @Configuration
 public class RedisConfig {

@@ -2,8 +2,6 @@ package com.liang.redisdemo.utils.ajax;
 
 /**
  * 操作消息提醒
- * @author Mr.Liang
- * @date 2022/5/11 15:56
  */
 import com.liang.redisdemo.utils.StringUtils;
 
