@@ -35,7 +35,7 @@ public class FindJar {
                         if (jarName.contains("com.sudytech.ids.data.sync.impl.ids.IdsTarDataHandler_Jdbc_BugRepair")) {
                             System.out.println(name);
                             System.out.println(jarName);
-                        }
+                        } 
                     }
                 }
             }
